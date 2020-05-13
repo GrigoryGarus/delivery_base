@@ -1,11 +1,44 @@
 package io.github.mkdev;
 
-public class App {
-  public static void main(String[] args) {
-    System.out.println(new App().getGreeting());
-  }
+import io.github.mkdev.model.*;
+import io.github.mkdev.service.*;
 
-  public String getGreeting() {
-    return "Hello world.";
+import java.math.BigDecimal;
+
+
+public class App {
+
+
+  /**
+   * Input program method. Allow start project code.
+   */
+  public static void main(String[] args) {
+    RoleService roleService = new RoleService();
+    UserService userService = new UserService();
+    MarketService marketService = new MarketService();
+    ItemService itemService = new ItemService();
+    UserTransactionService userTransactionService = new UserTransactionService();
+
+
+    Role adminRole = roleService.createAdminRole();
+    Role userRole = roleService.createUserRole();
+    Role marketOwnerRole = roleService.createMarketOwnerRole();
+
+
+    User admin = userService.create("admin", adminRole);
+    User user = userService.create("user", userRole);
+    User marketOwner = userService.create("marketOwner", marketOwnerRole);
+    Market delivery = marketService.createMarket("Delivery", marketOwner);
+    Item pizza = itemService.createItem("Pizza", "Пицца 4 сыра", delivery,
+      new BigDecimal(750));
+    UserTransactions userTransaction = userTransactionService.createUserTransactions(user, pizza,
+      2, new BigDecimal(1500));
+
+    System.out.println("Create admin with name: " + admin.getName());
+    System.out.println("Create admin with name: " + user.getName());
+    System.out.println("Create marketOwner with role: " + marketOwner.getRole().getName());
+    System.out.println("Create item pizza with description: " + pizza.getDescription());
+    System.out.println("Create UserTransactions userTransaction with item name: "
+      + userTransaction.getItem().getName());
   }
 }
