@@ -14,6 +14,7 @@ public class RoleService {
   public Role createUserRole() {
     return new Role("USER");
   }
+
   public Role createMarketOwnerRole() {
     return new Role("MARKET_OWNER");
   }
