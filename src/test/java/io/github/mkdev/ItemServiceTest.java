@@ -17,7 +17,8 @@ import org.junit.jupiter.api.Test;
 
 
 public class ItemServiceTest {
-  private static Item pizza;
+
+  private transient Item pizza;
 
   /** Init.*/
 
@@ -31,7 +32,7 @@ public class ItemServiceTest {
     User marketOwner = userService.create("marketOwner", marketOwnerRole);
     Market delivery = marketService.createMarket("Delivery", marketOwner);
     pizza = itemService.createItem("Pizza", "Пицца 4 сыра", delivery,
-               new BigDecimal(750));
+                                  new BigDecimal(750));
   }
 
   @Test

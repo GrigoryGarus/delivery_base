@@ -9,18 +9,26 @@ import io.github.mkdev.service.ItemService;
 import io.github.mkdev.service.MarketService;
 import io.github.mkdev.service.RoleService;
 import io.github.mkdev.service.UserService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
 
 public class MarketServiceTest {
 
-  static RoleService roleService = new RoleService();
-  static UserService userService = new UserService();
-  static MarketService marketService = new MarketService();
-  static Role marketOwnerRole = roleService.createMarketOwnerRole();
-  static User marketOwner = userService.create("marketOwner", marketOwnerRole);
-  static Market delivery = marketService.createMarket("Delivery", marketOwner);
+  private transient Market delivery;
+
+  /** Init.*/
+
+  @BeforeEach
+  public void init() {
+    RoleService roleService = new RoleService();
+    UserService userService = new UserService();
+    MarketService marketService = new MarketService();
+    Role marketOwnerRole = roleService.createMarketOwnerRole();
+    User marketOwner = userService.create("marketOwner", marketOwnerRole);
+    delivery = marketService.createMarket("Delivery", marketOwner);
+  }
 
   @Test
   void marketServiceOwnerNameTest() {

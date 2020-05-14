@@ -16,12 +16,12 @@ public class UserTransactions {
   /**
    * Create {@link io.github.mkdev.model.UserTransactions} object with required fields.
    */
-  public UserTransactions(User user, Item item, Integer count, BigDecimal price) {
+  public UserTransactions(User user, Item item, Integer count) {
     this.id = UUID.randomUUID();
     this.user = user;
     this.item = item;
     this.count = count;
-    this.price = price;
+    this.price = this.item.getPrice();
     this.total = this.item.getPrice().multiply(BigDecimal.valueOf(this.count));
   }
 

@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 public class UserTransactionService {
 
   public UserTransactions createUserTransactions(User user, Item item,
-                                                 Integer count, BigDecimal price) {
-    return new UserTransactions(user, item, count, price);
+                                                 Integer count) {
+    return new UserTransactions(user, item, count);
   }
 }
