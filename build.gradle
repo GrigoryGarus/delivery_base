@@ -39,6 +39,8 @@ spotbugsTest {
 pmd {
   toolVersion = "6.23.0"
   ignoreFailures = false
+  ruleSets = []
+  ruleSetConfig = resources.text.fromFile("pmd.xml")
 }
 
 pmdMain {

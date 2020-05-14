@@ -18,7 +18,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
-
 public class UserTransactionServiceTest {
 
   private transient UserTransactions userTransaction;
@@ -32,10 +31,8 @@ public class UserTransactionServiceTest {
     MarketService marketService = new MarketService();
     ItemService itemService = new ItemService();
     UserTransactionService userTransactionService = new UserTransactionService();
-
     Role userRole = roleService.createUserRole();
     Role marketOwnerRole = roleService.createMarketOwnerRole();
-
     User user = userService.create("user", userRole);
     User marketOwner = userService.create("marketOwner", marketOwnerRole);
     Market delivery = marketService.createMarket("Delivery", marketOwner);
@@ -44,10 +41,11 @@ public class UserTransactionServiceTest {
     userTransaction = userTransactionService.createUserTransactions(user, pizza, 2);
   }
 
+
   @Test
   void userTransactionServiceUserRoleTest() {
     assertEquals("USER", userTransaction.getUser().getRole().getName(),
-                 "Create UserTransactions with user role name");
+        "Create UserTransactions with user role name");
   }
 
   @Test
@@ -59,7 +57,7 @@ public class UserTransactionServiceTest {
   @Test
   void userTransactionServiceHasCountTest() {
     assertNotNull(userTransaction.getCount(),
-                 "Create UserTransactions has count");
+        "Create UserTransactions has count");
   }
 
   @Test

@@ -15,10 +15,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
-
 public class ItemServiceTest {
 
-  private transient Item pizza;
+
+  private Item pizza;
 
   /** Init.*/
 
@@ -38,12 +38,12 @@ public class ItemServiceTest {
   @Test
   void itemServiceDescriptionTest() {
     assertEquals("Пицца 4 сыра", pizza.getDescription(),
-                  "Create item pizza with description");
+        "Create item pizza with description");
   }
 
   @Test
   void itemServiceNameTest() {
     assertEquals("Pizza", pizza.getName(),
-                "Create item pizza with description");
+        "Create item pizza with description");
   }
 }
