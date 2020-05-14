@@ -22,7 +22,7 @@ public class UserTransactions {
     this.item = item;
     this.count = count;
     this.price = price;
-    this.total = this.price.multiply(BigDecimal.valueOf(this.count));
+    this.total = this.item.getPrice().multiply(BigDecimal.valueOf(this.count));
   }
 
 

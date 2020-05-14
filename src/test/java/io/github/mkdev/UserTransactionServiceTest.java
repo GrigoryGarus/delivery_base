@@ -57,4 +57,10 @@ public class UserTransactionServiceTest {
     assertNotNull(userTransaction.getCount(),
                  "Create UserTransactions has count");
   }
+
+  @Test
+  void userTransactionServiceItemTotalTest() {
+    assertEquals(new BigDecimal(1500), userTransaction.getTotal(),
+                "Create UserTransactions with user total");
+  }
 }

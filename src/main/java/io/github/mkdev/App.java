@@ -39,7 +39,7 @@ public class App {
     Item pizza = itemService.createItem("Pizza", "Пицца 4 сыра", delivery,
                           new BigDecimal(750));
     UserTransactions userTransaction = userTransactionService.createUserTransactions(user, pizza,
-                     2, new BigDecimal(1500));
+                     2, new BigDecimal(750));
 
     System.out.println("Create admin with name: " + admin.getName());
     System.out.println("Create admin with name: " + user.getName());
