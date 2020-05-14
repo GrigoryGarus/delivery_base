@@ -32,7 +32,7 @@ public class ItemServiceTest {
     Market delivery = marketService.createMarket("Delivery", marketOwner);
 
     this.pizza = itemService.createItem("Pizza", "Пицца 4 сыра", delivery,
-      new BigDecimal(750));
+        new BigDecimal(750));
   }
 
   @Test
