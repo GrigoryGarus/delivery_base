@@ -1,6 +1,5 @@
 package io.github.mkdev.dao;
 
-import io.github.mkdev.model.Role;
 import io.github.mkdev.model.User;
 import java.sql.Connection;
 import java.util.Optional;

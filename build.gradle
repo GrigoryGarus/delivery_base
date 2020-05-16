@@ -4,8 +4,8 @@ plugins {
   id "application"
   id "pmd"
   id "build-dashboard"
-  id "com.github.jakemarsden.git-hooks" version "0.0.2"
-  id "com.github.spotbugs" version "4.0.8"
+  //id "com.github.jakemarsden.git-hooks" version "0.0.2"
+  //id "com.github.spotbugs" version "4.0.8"
 }
 
 checkstyle {
@@ -15,26 +15,26 @@ checkstyle {
   maxWarnings = 0
 }
 
-spotbugs {
-  ignoreFailures = false
-  showProgress = true
-}
-
-spotbugsMain {
-  reports {
-    html {
-      enabled = true
-    }
-  }
-}
-
-spotbugsTest {
-  reports {
-    html {
-      enabled = true
-    }
-  }
-}
+//spotbugs {
+//  ignoreFailures = false
+//  showProgress = true
+//}
+//
+//spotbugsMain {
+//  reports {
+//    html {
+//      enabled = true
+//    }
+//  }
+//}
+//
+//spotbugsTest {
+//  reports {
+//    html {
+//      enabled = true
+//    }
+//  }
+//}
 
 pmd {
   toolVersion = "6.23.0"
@@ -59,10 +59,10 @@ pmdTest {
   }
 }
 
-gitHooks {
- // hooks = ["pre-commit": "build check"]
- // hooks = ["pre-push": "build check test"]
-}
+//gitHooks {
+//  hooks = ["pre-commit": "build check"]
+//  hooks = ["pre-push": "build check test"]
+//}
 
 repositories {
   jcenter()
