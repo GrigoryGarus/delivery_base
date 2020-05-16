@@ -1,16 +1,15 @@
 package io.github.mkdev;
 
-import io.github.mkdev.model.Item;
-import io.github.mkdev.model.Market;
+import io.github.mkdev.dao.H2BaseRepository;
+import io.github.mkdev.dao.H2RoleRepository;
+import io.github.mkdev.dao.Repository;
+import io.github.mkdev.database.H2ConnectionManager;
 import io.github.mkdev.model.Role;
-import io.github.mkdev.model.User;
-import io.github.mkdev.model.UserTransactions;
-import io.github.mkdev.service.ItemService;
-import io.github.mkdev.service.MarketService;
-import io.github.mkdev.service.RoleService;
-import io.github.mkdev.service.UserService;
-import io.github.mkdev.service.UserTransactionService;
-import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Optional;
+import java.util.UUID;
 
 
 public class App {
@@ -19,33 +18,58 @@ public class App {
   /**
    * Input program method. Allow start project code.
    */
-  public static void main(String[] args) {
-    RoleService roleService = new RoleService();
-    UserService userService = new UserService();
-    MarketService marketService = new MarketService();
-    ItemService itemService = new ItemService();
-    UserTransactionService userTransactionService = new UserTransactionService();
+  public static void main(String[] args) throws SQLException {
+    H2ConnectionManager connectionManager = H2ConnectionManager.create();
 
 
-    Role adminRole = roleService.createAdminRole();
-    Role userRole = roleService.createUserRole();
-    Role marketOwnerRole = roleService.createMarketOwnerRole();
+    Connection connection = connectionManager.getConnection();
 
 
-    User admin = userService.create("admin", adminRole);
-    User user = userService.create("user", userRole);
-    User marketOwner = userService.create("marketOwner", marketOwnerRole);
-    Market delivery = marketService.createMarket("Delivery", marketOwner);
-    Item pizza = itemService.createItem("Pizza", "Пицца 4 сыра", delivery,
-        new BigDecimal(750));
-    UserTransactions userTransaction = userTransactionService.createUserTransactions(user,
-                                                        pizza, 2);
+    Repository<Role> h2RoleRepository = new H2RoleRepository(connection);
 
-    System.out.println("Create admin with name: " + admin.getName());
-    System.out.println("Create admin with name: " + user.getName());
-    System.out.println("Create marketOwner with role: " + marketOwner.getRole().getName());
-    System.out.println("Create item pizza with description: " + pizza.getDescription());
-    System.out.println("Create UserTransactions userTransaction with item name: "
-        + userTransaction.getItem().getName());
+
+    Optional<Role> role = h2RoleRepository.save(new Role("ADMIN"));
+
+    System.out.println(role.get().getId());
+
+    H2BaseRepository baseRepository = new H2BaseRepository(connection);
+    System.out.println(Arrays.asList(baseRepository.selectAllFieldsByTableNameAndId(
+              "Role", role.get().getId().toString())));
+
+
+    baseRepository.updateFieldByTableNameFieldNameAndId("Role", "name",
+                                  role.get().getId().toString(), "USER!");
+
+
+
+    baseRepository.createRowByTableNameAndColumns("Role",
+      new String[]{"1de3e313-d18b-47d2-8239-fe99a28a209f", "USERR"});
+
+    baseRepository.deleteRowByTableNameAndRowId("Role", role.get().getId().toString());
+    System.out.println(Arrays.asList(baseRepository.selectAllFieldsByTableNameAndId(
+      "Role", role.get().getId().toString())));
+
+    System.out.println(Arrays.asList(baseRepository.selectAllFieldsByTableNameAndId(
+      "Role", "1de3e313-d18b-47d2-8239-fe99a28a209f")));
+
+
+
+    String [] values = {"USER", role.get().getId().toString() };
+    StringBuilder valueAppend= new StringBuilder();
+    valueAppend.append("INSERT INTO ").append("tableName").append(" VALUES (");
+    for (int i = 0; i <values.length; i++) {
+      if (i!=values.length-1){
+        valueAppend.append("'").append(values[i]).append("', ");
+      } else valueAppend.append("'").append(values[i]).append("')");
+    }
+    System.out.println(valueAppend.toString());
+
+
+
+
+
+
+
+
   }
 }

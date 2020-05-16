@@ -60,8 +60,8 @@ pmdTest {
 }
 
 gitHooks {
-  hooks = ["pre-commit": "build check"]
-  hooks = ["pre-push": "build check test"]
+ // hooks = ["pre-commit": "build check"]
+ // hooks = ["pre-push": "build check test"]
 }
 
 repositories {
@@ -75,6 +75,7 @@ ext {
 dependencies {
   testImplementation "org.junit.jupiter:junit-jupiter-api:${junitV}"
   testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitV}"
+  runtimeOnly "com.h2database:h2:1.4.200"
 }
 
 application {
